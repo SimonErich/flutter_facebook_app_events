@@ -228,6 +228,18 @@ class FacebookAppEvents {
       valueToSum: price,
     );
   }
+  
+  /// Enables/Disables the sdk debug mode for more logging
+  ///
+  /// See: https://developers.facebook.com/docs/app-events/getting-started-app-events-android/#enabling-debug-logs
+  Future <void> setIsDebugEnabled(bool enabled) {
+    if (enabled) {
+      FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS);
+      return _channel.invokeMethod<void>('setIsDebugEnabled', true);
+    }
+    
+    return _channel.invokeMethod<void>('setIsDebugEnabled', false);
+  }
 
   /// Re-enables auto logging of app events after user consent
   /// if disabled for GDPR-compliance.
