@@ -174,10 +174,17 @@ class FacebookAppEventsPlugin: FlutterPlugin, MethodCallHandler {
     }
     return bundle
   }
-
+  
   private fun handleSetAutoLogAppEventsEnabled(call: MethodCall, result: Result) {
     val enabled = call.arguments as Boolean
     FacebookSdk.setAutoLogAppEventsEnabled(enabled)
+    result.success(null)
+  }
+
+  private fun handleSetIsDebugEnabled(call: MethodCall, result: Result) {
+    val enabled = call.arguments as Boolean
+    FacebookSdk.addLoggingBehavior(LoggingBehavior.APP_EVENTS)
+    FacebookSdk.setIsDebugEnabled(enabled);
     result.success(null)
   }
 
